@@ -834,24 +834,24 @@ function applyTranslations(lang) {
     const datalist = document.getElementById("euCountries");
     datalist.innerHTML = ""; 
 
-    const countries = Object.keys(countryTranslations.en); // English country names
+    const countries = Object.keys(countryTranslations.en); 
     countries.forEach(country => {
         const option = document.createElement("option");
-        option.value = countryDict[country] || country; // translated or fallback
+        option.value = countryDict[country] || country; 
         option.label = countryDict[country] || country;
         datalist.appendChild(option);
     });
 }
 
-// Detect browser language and apply
 document.addEventListener("DOMContentLoaded", () => {
     const fullLang = navigator.language || navigator.userLanguage || "en";
     const shortLang = fullLang.slice(0, 2).toLowerCase();
     const langToUse = translations[shortLang] ? shortLang : "en";
     applyTranslations(langToUse);
+    changingFlags()
 });
 
-function changingFlags() {
+function changingFlags() { //This is the part that needs to be changed
     const countryInput = document.getElementById('countryInput');
     const flagsContainer = document.getElementById('Flags');
     
@@ -881,9 +881,7 @@ function changingFlags() {
 
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    changingFlags()
-});
+
 
 // Problem is this and the language aren't communicating
 
