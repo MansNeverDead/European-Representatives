@@ -816,10 +816,13 @@ const countryTranslations = {
   }
 };
 
+let currentLang = 'en';
+let currentCountryDict = countryTranslations.en;
 
 function applyTranslations(lang) {
     const dict = translations[lang] || translations.en;
-    const countryDict = countryTranslations[lang] || countryTranslations.en;
+    currentCountryDict = countryTranslations[lang] || countryTranslations.en;
+    currentLang = lang;
     document.documentElement.lang = lang;
 
     const titleEl = document.getElementById("Title");
@@ -837,8 +840,8 @@ function applyTranslations(lang) {
     const countries = Object.keys(countryTranslations.en); 
     countries.forEach(country => {
         const option = document.createElement("option");
-        option.value = countryDict[country] || country; 
-        option.label = countryDict[country] || country;
+        option.value = currentCountryDict[country] || country; 
+        option.label = currentCountryDict[country] || country;
         datalist.appendChild(option);
     });
 }
@@ -864,19 +867,21 @@ function changingFlags() { //This is the part that needs to be changed
             link.style.display = 'none';
         });
         
-        if (!inputValue) {
-            originalFlagLinks.forEach(link => {
-                link.style.display = 'block'; 
-            });
-            return;
-        }
-        
         originalFlagLinks.forEach(link => {
             const countryName = link.querySelector('img').alt; 
             if (countryName.toLowerCase().startsWith(inputValue)) {
                 link.style.display = 'block';
             }
         });
+
+        originalFlagLinks.forEach(link => {
+            const englishCountryName = link.querySelector('img').alt;
+            const translatedCountryName = currentCountryDict[englishCountryName] || englishCountryName;
+            if (translatedCountryName .toLowerCase().startsWith(inputValue)) {
+                link.style.display = 'block';
+            }
+        });
+    
     });
 
 }
