@@ -159,155 +159,27 @@ function getAppropriateLanguage() {
     const browserLang = navigator.language.slice(0, 2);
     const euLanguages = Object.keys(pageTranslations);
     
-    // Check if browser language is one of the EU languages
     if (euLanguages.includes(browserLang)) {
         return browserLang;
     }
     
-    // Default to English for non-EU languages
     return 'en';
 }
 
-// Function to translate page content
 function translatePageContent() {
     const lang = getAppropriateLanguage();
     const translations = pageTranslations[lang] || pageTranslations.en;
     
-    // Update h1
     const titleElement = document.querySelector('h1');
     if (titleElement) {
         titleElement.textContent = translations.title;
     }
     
-    // Update paragraph
     const messageElement = document.querySelector('p');
     if (messageElement) {
         messageElement.textContent = translations.message;
     }
 }
-
-// Updated handleGeolocationError function
-function handleGeolocationError(error) {
-    const lang = getAppropriateLanguage();
-    let message = '';
-    
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            if (lang === 'en') message = 'Location access denied. Please enable location services.';
-            else if (lang === 'de') message = 'Standortzugriff verweigert. Bitte aktivieren Sie die Standortdienste.';
-            else if (lang === 'fr') message = 'Accès à la localisation refusé. Veuillez activer les services de localisation.';
-            else if (lang === 'es') message = 'Acceso a la ubicación denegado. Por favor, active los servicios de localización.';
-            else if (lang === 'it') message = 'Accesso alla posizione negato. Si prega di abilitare i servizi di localizzazione.';
-            else if (lang === 'nl') message = 'Toegang tot locatie geweigerd. Schakel locatieservices in.';
-            else if (lang === 'pl') message = 'Dostęp do lokalizacji odrzucony. Proszę włączyć usługi lokalizacji.';
-            else if (lang === 'pt') message = 'Acesso à localização negado. Por favor, ative os serviços de localização.';
-            else if (lang === 'ro') message = 'Acces la locație refuzat. Vă rugăm să activați serviciile de localizare.';
-            else if (lang === 'hu') message = 'Helymeghatározási hozzáférés megtagadva. Kérjük, engedélyezze a helymeghatározási szolgáltatásokat.';
-            else if (lang === 'sv') message = 'Platstillstånd nekades. Vänligen aktivera platstjänster.';
-            else if (lang === 'cs') message = 'Přístup k poloze byl odepřen. Povolte prosím služby určování polohy.';
-            else if (lang === 'da') message = 'Placering adgang nægtet. Aktiver venligst placeringstjenester.';
-            else if (lang === 'fi') message = 'Sijainnin käyttö estetty. Ota sijaintipalvelut käyttöön.';
-            else if (lang === 'el') message = 'Απορρίφθηκε η πρόσβαση στη θέση. Ενεργοποιήστε τις υπηρεσίες θέσης.';
-            else if (lang === 'sk') message = 'Prístup k polohe bol zamietnutý. Povoľte prosím služby určovania polohy.';
-            else if (lang === 'sl') message = 'Dostop do lokacije je zavrnjen. Prosimo, omogočite lokacijske storitve.';
-            else if (lang === 'et') message = 'Asukoha juurdepääs keelati. Palun lubage asukohateenused.';
-            else if (lang === 'lv') message = 'Atrašanās vietas piekļuve liegta. Lūdzu, ieslēdziet atrašanās vietas servisus.';
-            else if (lang === 'lt') message = 'Vietos prieiga uždrausta. Įjunkite vietos nustatymo paslaugas.';
-            else if (lang === 'mt') message = 'Aċċess għall-post miċħud. Jekk jogħġbok attiva s-servizzi tal-post.';
-            else if (lang === 'hr') message = 'Pristup lokaciji odbijen. Molimo omogućite usluge lociranja.';
-            else if (lang === 'bg') message = 'Достъпът до местоположението е отказан. Моля, активирайте услугите за местоположение.';
-            break;
-            
-        case error.POSITION_UNAVAILABLE:
-            if (lang === 'en') message = 'Location information unavailable.';
-            else if (lang === 'de') message = 'Standortinformationen nicht verfügbar.';
-            else if (lang === 'fr') message = 'Informations de localisation indisponibles.';
-            else if (lang === 'es') message = 'Información de ubicación no disponible.';
-            else if (lang === 'it') message = 'Informazioni sulla posizione non disponibili.';
-            else if (lang === 'nl') message = 'Locatie-informatie niet beschikbaar.';
-            else if (lang === 'pl') message = 'Informacje o lokalizacji niedostępne.';
-            else if (lang === 'pt') message = 'Informação de localização indisponível.';
-            else if (lang === 'ro') message = 'Informații despre locație indisponibile.';
-            else if (lang === 'hu') message = 'Helymeghatározási információk nem elérhetők.';
-            else if (lang === 'sv') message = 'Platsinformation inte tillgänglig.';
-            else if (lang === 'cs') message = 'Informace o poloze není k dispozici.';
-            else if (lang === 'da') message = 'Placeringsinformation utilgængelig.';
-            else if (lang === 'fi') message = 'Sijaintitietoja ei saatavilla.';
-            else if (lang === 'el') message = 'Πληροφορίες θέσης μη διαθέσιμες.';
-            else if (lang === 'sk') message = 'Informácie o polohe nie sú k dispozícii.';
-            else if (lang === 'sl') message = 'Informacije o lokaciji niso na voljo.';
-            else if (lang === 'et') message = 'Asukohateave pole saadaval.';
-            else if (lang === 'lv') message = 'Informācija par atrašanās vietu nav pieejama.';
-            else if (lang === 'lt') message = 'Vietos informacija neprieinama.';
-            else if (lang === 'mt') message = 'Informazzjoni dwar il-post mhux disponibbli.';
-            else if (lang === 'hr') message = 'Informacije o lokaciji nisu dostupne.';
-            else if (lang === 'bg') message = 'Информация за местоположението не е налична.';
-            break;
-            
-        case error.TIMEOUT:
-            if (lang === 'en') message = 'Location request timed out.';
-            else if (lang === 'de') message = 'Zeitüberschreitung bei der Standortanfrage.';
-            else if (lang === 'fr') message = 'Délai de demande de localisation dépassé.';
-            else if (lang === 'es') message = 'Tiempo de espera de la solicitud de ubicación agotado.';
-            else if (lang === 'it') message = 'Timeout della richiesta di posizione.';
-            else if (lang === 'nl') message = 'Time-out bij locatieverzoek.';
-            else if (lang === 'pl') message = 'Przekroczono czas żądania lokalizacji.';
-            else if (lang === 'pt') message = 'Tempo limite da solicitação de localização esgotado.';
-            else if (lang === 'ro') message = 'Timpul de așteptare pentru cererea de locație a expirat.';
-            else if (lang === 'hu') message = 'A helymeghatározási kérelem időtúllépést szenvedett.';
-            else if (lang === 'sv') message = 'Platsförfrågan tog för lång tid.';
-            else if (lang === 'cs') message = 'Časový limit požadavku na polohu vypršel.';
-            else if (lang === 'da') message = 'Placeringsanmodning timeout.';
-            else if (lang === 'fi') message = 'Sijainnin hakuaika loppui.';
-            else if (lang === 'el') message = 'Το αίτημα θέσης έληξε.';
-            else if (lang === 'sk') message = 'Časový limit žiadosti o polohu vypršal.';
-            else if (lang === 'sl') message = 'Zahteva za lokacijo je potekla.';
-            else if (lang === 'et') message = 'Asukohapäring aegus.';
-            else if (lang === 'lv') message = 'Pārsniegts vietas pieprasījuma noildze.';
-            else if (lang === 'lt') message = 'Pasibaigė vietos užklausos laikas.';
-            else if (lang === 'mt') message = 'Talba għall-post waqfet.';
-            else if (lang === 'hr') message = 'Vrijeme zahtjeva za lokaciju je isteklo.';
-            else if (lang === 'bg') message = 'Времето за заявка за местоположение изтече.';
-            break;
-            
-        default:
-            if (lang === 'en') message = 'An unknown error occurred.';
-            else if (lang === 'de') message = 'Ein unbekannter Fehler ist aufgetreten.';
-            else if (lang === 'fr') message = 'Une erreur inconnue est survenue.';
-            else if (lang === 'es') message = 'Ocurrió un error desconocido.';
-            else if (lang === 'it') message = 'Si è verificato un errore sconosciuto.';
-            else if (lang === 'nl') message = 'Er is een onbekende fout opgetreden.';
-            else if (lang === 'pl') message = 'Wystąpił nieznany błąd.';
-            else if (lang === 'pt') message = 'Ocorreu um erro desconhecido.';
-            else if (lang === 'ro') message = 'A apărut o eroare necunoscută.';
-            else if (lang === 'hu') message = 'Ismeretlen hiba történt.';
-            else if (lang === 'sv') message = 'Ett okänt fel inträffade.';
-            else if (lang === 'cs') message = 'Došlo k neznámé chybě.';
-            else if (lang === 'da') message = 'En ukendt fejl opstod.';
-            else if (lang === 'fi') message = 'Tuntematon virhe tapahtui.';
-            else if (lang === 'el') message = 'Παρουσιάστηκε άγνωστο σφάλμα.';
-            else if (lang === 'sk') message = 'Vyskytla sa neznáma chyba.';
-            else if (lang === 'sl') message = 'Prišlo je do neznane napake.';
-            else if (lang === 'et') message = 'Tekkis tundmatu viga.';
-            else if (lang === 'lv') message = 'Radās nezināma kļūda.';
-            else if (lang === 'lt') message = 'Įvyko nežinoma klaida.';
-            else if (lang === 'mt') message = 'Seħħ żball mhux magħruf.';
-            else if (lang === 'hr') message = 'Došlo je do nepoznate pogreške.';
-            else if (lang === 'bg') message = 'Възникна неизвестна грешка.';
-            break;
-    }
-    
-    showError(message, lang);
-}
-
-// Update DOMContentLoaded to include page translation
-/*document.addEventListener("DOMContentLoaded", () => {
-    translatePageContent(); // Translate h1 and p elements
-    createManualButton();
-    setTimeout(() => {
-        detectAndRedirect();
-    }, 1000);
-});*/
 
 function detectAndRedirect() {
     // Check if geolocation is supported
@@ -316,7 +188,6 @@ function detectAndRedirect() {
         return;
     }
 
-    // Show loading message
     const loadingMessage = document.createElement('div');
     loadingMessage.style.cssText = `
         position: fixed;
@@ -333,21 +204,18 @@ function detectAndRedirect() {
     loadingMessage.textContent = 'Detecting your location...';
     document.body.appendChild(loadingMessage);
 
-    // Get user's location
     navigator.geolocation.getCurrentPosition(
         async (position) => {
             try {
                 const { latitude, longitude } = position.coords;
                 
-                // Reverse geocode to get country code
                 const countryCode = await getCountryCode(latitude, longitude);
+
                 
-                // Remove loading message
+                
                 document.body.removeChild(loadingMessage);
                 
-                // Check if country is in EU
                 if (euCountries.includes(countryCode)) {
-                    // Redirect to country-specific page
                     const path = countryPaths[countryCode];
                     if (path) {
                         window.location.href = path;
@@ -361,10 +229,11 @@ function detectAndRedirect() {
                 document.body.removeChild(loadingMessage);
                 showError('Error detecting your location: ' + error.message);
             }
+            latitude, longitude = null, null
         },
         (error) => {
             document.body.removeChild(loadingMessage);
-            handleGeolocationError(error);
+            redirectToCountrySelection()
         },
         {
             enableHighAccuracy: true,
@@ -386,54 +255,8 @@ async function getCountryCode(lat, lng) {
     }
 }
 
-function handleGeolocationError(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            showError('Location access denied. Please enable location services to use this feature.');
-            break;
-        case error.POSITION_UNAVAILABLE:
-            showError('Location information unavailable.');
-            break;
-        case error.TIMEOUT:
-            showError('Location request timed out.');
-            break;
-        default:
-            showError('An unknown error occurred.');
-            break;
-    }
-}
-
-function showError(message) {
-    // Create error message element
-    const errorDiv = document.createElement('div');
-    errorDiv.style.cssText = `
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: rgba(255, 0, 0, 0.9);
-        color: white;
-        padding: 30px;
-        border-radius: 15px;
-        z-index: 1000;
-        text-align: center;
-        max-width: 80%;
-        font-family: Arial, sans-serif;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    `;
-    
-    errorDiv.innerHTML = `
-        <h2 style="margin: 0 0 15px 0; font-size: 24px;">⚠️ Error</h2>
-        <p style="margin: 0 0 20px 0; font-size: 18px;">${message}</p>
-        <button onclick="this.parentElement.parentElement.style.display='none'" 
-                style="background: white; color: #ff4444; border: none; 
-                       padding: 10px 20px; border-radius: 5px; cursor: pointer;
-                       font-weight: bold;">
-            OK
-        </button>
-    `;
-    
-    document.body.appendChild(errorDiv);
+function redirectToCountrySelection() {
+    window.location.href = 'Redirection/chooseCountry.html';
 }
 
 // Alternative method using IP-based geolocation (fallback)
@@ -457,14 +280,11 @@ async function detectByIP() {
     }
 }
 
-
-// Mapping of country codes to website paths
-
 // Add this to your existing code
 document.addEventListener("DOMContentLoaded", () => {
     // Add a button or trigger for location detection
     const detectButton = document.createElement('button');
-    detectButton.textContent = 'Auto-detect my location';
+    detectButton.textContent = 'Press here!!!';
     detectButton.style.cssText = `
         position: fixed;
         bottom: 20px;
